@@ -16,29 +16,34 @@ body {
 }
 
 .chatBot {
-  border: 3px solid #2F8D46;
+  /* Chatbot border*/
+  border: 3px solid #291887;
   border-radius: 10px;
   margin: 50px auto;
   overflow: hidden;
   width: 500px;
   overflow-y: clip;
   height: 600px;
-  background: rgb(255, 255, 255) url(gfg-gg-logo.svg);
+  /* Chatbot message window background*/
+  background: rgba(213, 238, 243, 0.349) url(gfg-gg-logo.svg);
   background-size: contain;
+  /* Chatbot Drop shadow*/
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-repeat: no-repeat;
   background-position: center;
 }
 
 header {
-  background-color: #2F8D46;
+  /* Chatbot header*/
+  background-color: #2119c2;
   text-align: center;
   padding: 10px 0;
   border-radius: 7px 7px 0 0;
 }
 
 header h2 {
-  color: #fff;
+  /* Chatbot header text*/
+  color: #ffffff;
   margin: 0;
 }
 
@@ -131,6 +136,6 @@ header h2 {
   margin-top: 50px;
   font-size: 35px;
   font-weight: 600;
-  color: darkgreen;
+  color: rgb(66, 54, 160);
   margin-left: 550px;
 }
