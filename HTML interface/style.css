@@ -16,34 +16,33 @@ body {
 }
 
 .chatBot {
-  /* Chatbot border*/
-  border: 3px solid #291887;
+  /*Outside Border*/
+  border: 3px solid #1447a000;
   border-radius: 10px;
   margin: 50px auto;
   overflow: hidden;
   width: 500px;
   overflow-y: clip;
   height: 600px;
-  /* Chatbot message window background*/
-  background: rgba(213, 238, 243, 0.349) url(gfg-gg-logo.svg);
+  /*Chat area background*/
+  background: rgb(255, 255, 255) url(gfg-gg-logo.svg);
   background-size: contain;
-  /* Chatbot Drop shadow*/
+  /*Chat area drop shadow*/
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-repeat: no-repeat;
   background-position: center;
 }
 
 header {
-  /* Chatbot header*/
-  background-color: #2119c2;
+  /*Chatbox header*/
+  background-color: #1447a0;
   text-align: center;
   padding: 10px 0;
   border-radius: 7px 7px 0 0;
 }
 
 header h2 {
-  /* Chatbot header text*/
-  color: #ffffff;
+  color: #fff;
   margin: 0;
 }
 
@@ -89,8 +88,9 @@ header h2 {
   outline: none;
   overflow-y: scroll;
   background-color: #dcdcdc85;
+  /*user message text*/
   font-size: 16px;
-  color: green;
+  color: rgb(6, 19, 93);
   font-weight: 600;
   margin-top: -10px;
   margin-left: -15px;
@@ -126,7 +126,7 @@ header h2 {
   font-size: 20px;
   font-weight: 600;
   border-radius: 7px;
-  background-color: #2F8D46;
+  background-color: rgb(65, 184, 231);
   cursor: pointer;
   color: white;
   margin-top: 12px;
@@ -136,6 +136,6 @@ header h2 {
   margin-top: 50px;
   font-size: 35px;
   font-weight: 600;
-  color: rgb(66, 54, 160);
+  color: rgb(65, 184, 231);
   margin-left: 550px;
 }
