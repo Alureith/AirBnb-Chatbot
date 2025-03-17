@@ -1,47 +1,29 @@
-// script.js
-
 const chatInput = document.querySelector('.chat-input textarea');
 const sendChatBtn = document.querySelector('.chat-input button');
 const chatbox = document.querySelector(".chatbox");
 
 let userMessage;
 
-// Get the API key from the environment variable (assuming you're using a build tool like Webpack, or a backend that can inject the variable)
-const API_KEY = process.env.OPENAI_API_KEY;
-
-// OpenAI Free APIKey
-
 const createChatLi = (message, className) => {
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", className);
-    let chatContent = className === "chat-outgoing" ? `<p>${message}</p>` : `<p>${message}</p>`;
-    chatLi.innerHTML = chatContent;
+    chatLi.innerHTML = `<p>${message}</p>`;
     return chatLi;
-}
+};
 
 const generateResponse = (incomingChatLi) => {
-    const API_URL = "https://api.openai.com/v1/chat/completions";
+    // We'll call our server endpoint at /api/chat
+    const API_URL = "/api/chat";
     const messageElement = incomingChatLi.querySelector("p");
 
-    if (!API_KEY) {
-        messageElement.textContent = "API key is missing. Please configure the environment properly.";
-        return;
-    }
-
+    // Build a simple request body that the server expects
     const requestOptions = {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "model": "gpt-3.5-turbo",
-            "messages": [
-                {
-                    role: "user",
-                    content: userMessage
-                }
-            ]
+            message: userMessage
         })
     };
 
@@ -53,9 +35,16 @@ const generateResponse = (incomingChatLi) => {
             return res.json();
         })
         .then(data => {
-            messageElement.textContent = data.choices[0].message.content;
+            // Make sure we have a valid response from OpenAI
+            if (data.choices && data.choices.length > 0) {
+                messageElement.textContent = data.choices[0].message.content;
+            } else {
+                messageElement.classList.add("error");
+                messageElement.textContent = "No valid response from OpenAI.";
+            }
         })
         .catch((error) => {
+            console.error("Error in client fetch:", error);
             messageElement.classList.add("error");
             messageElement.textContent = "Oops! Something went wrong. Please try again!";
         })
@@ -67,26 +56,30 @@ const handleChat = () => {
     if (!userMessage) {
         return;
     }
+    // Add the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "chat-outgoing"));
     chatbox.scrollTo(0, chatbox.scrollHeight);
 
+    // Show a "Thinking..." message
     setTimeout(() => {
-        const incomingChatLi = createChatLi("Thinking...", "chat-incoming")
+        const incomingChatLi = createChatLi("Thinking...", "chat-incoming");
         chatbox.appendChild(incomingChatLi);
         chatbox.scrollTo(0, chatbox.scrollHeight);
         generateResponse(incomingChatLi);
     }, 600);
-}
+};
 
+// Send message on button click
 sendChatBtn.addEventListener("click", handleChat);
 
+// Optional: close/cancel function
 function cancel() {
     let chatbotcomplete = document.querySelector(".chatBot");
-    if (chatbotcomplete.style.display != 'none') {
+    if (chatbotcomplete && chatbotcomplete.style.display !== 'none') {
         chatbotcomplete.style.display = "none";
         let lastMsg = document.createElement("p");
         lastMsg.textContent = 'Thanks for using our Chatbot!';
         lastMsg.classList.add('lastMessage');
-        document.body.appendChild(lastMsg)
+        document.body.appendChild(lastMsg);
     }
 }
